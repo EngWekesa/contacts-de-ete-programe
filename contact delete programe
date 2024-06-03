@@ -1,0 +1,33 @@
+import os
+
+def delete_contacts():
+    
+    phonebook_path = "path/to/phonebook.txt"
+    if not os.path.exists(phonebook_path):
+        print("Phonebook file does not exist.")
+        return
+    contacts_to_delete = []  
+    
+    temp_phonebook_path = "path/to/temp_phonebook.txt"
+
+    try:
+        
+        with open(phonebook_path, 'r') as phonebook_file:
+
+            
+            with open(temp_phonebook_path, 'w') as temp_phonebook_file:
+
+                for line in phonebook_file:
+
+                    name, phone_number = line.strip().split(',')
+
+                    if name not in contacts_to_delete:
+                        temp_phonebook_file.write(f"{name},{phone_number}\n")
+
+        os.replace(temp_phonebook_path, phonebook_path)
+
+        print("Contacts deleted successfully.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+delete_contacts()
